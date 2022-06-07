@@ -1,5 +1,6 @@
 import * as React from "react"
 import GlobalStyle from "../components/globalStyle"
+import Navbar from "../components/Navbar"
 
 // markup
 const IndexPage = () => {
@@ -7,7 +8,7 @@ const IndexPage = () => {
     <main>
       <GlobalStyle />
       <title>Home Page</title>
-      ice
+      <Navbar></Navbar>
     </main>
   )
 }

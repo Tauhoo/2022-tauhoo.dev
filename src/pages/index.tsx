@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import Container from '../components/Container'
 import ContentLayout from '../components/ContentLayout'
+import ExperiencePanel from '../components/ExperiencePanel'
 import GlobalStyle from '../components/globalStyle'
 import Navbar from '../components/Navbar'
 import PanelDisplayer, { PanelEntry } from '../components/PanelDisplayer'
@@ -24,7 +25,7 @@ const panelNames = {
 const panels: PanelEntry[] = [
   { name: panelNames.PROFILE, panel: <ProfilePanel /> },
   { name: panelNames.SKILL, panel: <SkillPanel /> },
-  { name: panelNames.EXPERIENCE, panel: <ProfilePanel /> },
+  { name: panelNames.EXPERIENCE, panel: <ExperiencePanel /> },
 ]
 
 // markup

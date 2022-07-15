@@ -36,6 +36,15 @@ const Page = styled.div<PageProps>`
   opacity: ${({ visible }: PageProps): number => (visible ? 1 : 0)};
   transition: 0.3s;
 `
+type SizeWraperProps = {
+  visible: boolean
+}
+
+const SizeWraper = styled.div<SizeWraperProps>`
+  height: ${({ visible }: SizeWraperProps): string =>
+    visible ? 'max-content' : '0px'};
+  overflow: hidden;
+`
 
 type Props = {
   currentPage: number
@@ -47,9 +56,11 @@ const PageSlider: React.FC<Props> = ({ pages, currentPage }) => {
     <Container>
       <Slider maxPage={pages.length} currentPage={currentPage}>
         {pages.map((page, index) => (
-          <Page visible={index === currentPage} key={String(index)}>
-            {page}
-          </Page>
+          <SizeWraper visible={index === currentPage}>
+            <Page visible={index === currentPage} key={String(index)}>
+              {page}
+            </Page>
+          </SizeWraper>
         ))}
       </Slider>
     </Container>

@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import Container from '../components/Container'
 import ContentLayout from '../components/ContentLayout'
 import GlobalStyle from '../components/globalStyle'
 import Navbar from '../components/Navbar'
+import PanelDisplayer, { PanelEntry } from '../components/PanelDisplayer'
 import ProfilePanel from '../components/ProfilePanel'
 
 const Layout = styled.div`
@@ -13,8 +14,22 @@ const Layout = styled.div`
   gap: 20px;
 `
 
+const panelNames = {
+  PROFILE: 'PROFILE',
+  SKILL: 'SKILL',
+  EXPERIENCE: 'EXPERIENCE',
+}
+
+const panels: PanelEntry[] = [
+  { name: panelNames.PROFILE, panel: <ProfilePanel /> },
+  { name: panelNames.SKILL, panel: <ProfilePanel /> },
+  { name: panelNames.EXPERIENCE, panel: <ProfilePanel /> },
+]
+
 // markup
 const IndexPage = () => {
+  const [panel, setPanel] = useState(panelNames.PROFILE)
+
   return (
     <main>
       <GlobalStyle />
@@ -25,8 +40,18 @@ const IndexPage = () => {
           <ContentLayout>
             <div
               style={{ height: '100%', width: '100%', backgroundColor: 'red' }}
-            ></div>
-            <ProfilePanel />
+            >
+              <button onClick={() => setPanel(panelNames.EXPERIENCE)}>
+                {panelNames.EXPERIENCE}
+              </button>
+              <button onClick={() => setPanel(panelNames.PROFILE)}>
+                {panelNames.PROFILE}
+              </button>
+              <button onClick={() => setPanel(panelNames.SKILL)}>
+                {panelNames.SKILL}
+              </button>
+            </div>
+            <PanelDisplayer panels={panels} currentPanel={panel} />
           </ContentLayout>
         </Layout>
       </Container>

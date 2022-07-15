@@ -6,6 +6,7 @@ import GlobalStyle from '../components/globalStyle'
 import Navbar from '../components/Navbar'
 import PanelDisplayer, { PanelEntry } from '../components/PanelDisplayer'
 import ProfilePanel from '../components/ProfilePanel'
+import SkillPanel from '../components/SkillPanel'
 
 const Layout = styled.div`
   display: grid;
@@ -22,7 +23,7 @@ const panelNames = {
 
 const panels: PanelEntry[] = [
   { name: panelNames.PROFILE, panel: <ProfilePanel /> },
-  { name: panelNames.SKILL, panel: <ProfilePanel /> },
+  { name: panelNames.SKILL, panel: <SkillPanel /> },
   { name: panelNames.EXPERIENCE, panel: <ProfilePanel /> },
 ]
 

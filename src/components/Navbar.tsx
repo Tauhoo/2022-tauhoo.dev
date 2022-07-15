@@ -1,8 +1,6 @@
 import React from "react"
 import styled from "styled-components"
 
-import Container from "./Container"
-
 import Logo from "./icons/Logo"
 import FacebookLogo from "./icons/Facebook"
 import TwitterLogo from "./icons/Twitter"
@@ -28,7 +26,6 @@ const LogoList = styled.div`
 
 const Navbar: React.FC = () => {
   return (
-    <Container>
       <Content>
         <Logo></Logo>
         <div>tauhoo.dev</div>
@@ -39,7 +36,6 @@ const Navbar: React.FC = () => {
           <GithubLogo />
         </LogoList>
       </Content>
-    </Container>
   )
 }
 

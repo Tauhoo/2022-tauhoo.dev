@@ -1,5 +1,5 @@
-import React from "react"
-import styled from "styled-components"
+import React from 'react'
+import styled from 'styled-components'
 
 const Container = styled.div`
   width: 100%;
@@ -8,8 +8,8 @@ const Container = styled.div`
   height: 100%;
 `
 
-const ContentLayout: React.FC<React.PropsWithChildren<{}>> = ({children}) => {
-    return <Container>{children}</Container>
+const ContentLayout: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
+  return <Container>{children}</Container>
 }
 
 export default ContentLayout

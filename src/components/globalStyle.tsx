@@ -1,4 +1,4 @@
-import { createGlobalStyle } from "styled-components"
+import { createGlobalStyle } from 'styled-components'
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -7,6 +7,7 @@ const GlobalStyle = createGlobalStyle`
     font-size: 16px;
     color: #646464;
     background: linear-gradient(180deg, #6D6AFE 0%, #FE6A6A 100%);
+    line-height: 30px;
   }
   * {
       box-sizing: border-box;

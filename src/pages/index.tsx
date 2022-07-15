@@ -4,6 +4,7 @@ import Container from '../components/Container'
 import ContentLayout from '../components/ContentLayout'
 import GlobalStyle from '../components/globalStyle'
 import Navbar from '../components/Navbar'
+import ProfilePanel from '../components/ProfilePanel'
 
 const Layout = styled.div`
   display: grid;
@@ -25,9 +26,7 @@ const IndexPage = () => {
             <div
               style={{ height: '100%', width: '100%', backgroundColor: 'red' }}
             ></div>
-            <div
-              style={{ height: '100%', width: '100%', backgroundColor: 'red' }}
-            ></div>
+            <ProfilePanel />
           </ContentLayout>
         </Layout>
       </Container>

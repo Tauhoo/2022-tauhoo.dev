@@ -6,6 +6,7 @@ import Title from './Title'
 import PanelPagination from './PanelPagination'
 import PageSlider from './PageSlider'
 import HardSkill, { Props as HardSkillProps } from './HardSkill'
+import Project, { Props as ProjectProps } from './Project'
 import IconImage from './IconImage'
 
 import HTMLLogo from '../images/htmlLogo.png'
@@ -14,6 +15,11 @@ import JSLogo from '../images/javascriptLogo.png'
 import GolangLogo from '../images/golangLogo.png'
 import ReactLogo from '../images/reactLogo.png'
 
+import KUKoreanLogo from '../images/kukoreanLogo.png'
+import TauhooLogo from '../images/logo.png'
+import AdonLogo from '../images/adonLogo.png'
+import MakeLogo from '../images/MakeLogo.png'
+
 const ContentLayout = styled.div`
   height: 100%;
   display: grid;
@@ -21,7 +27,7 @@ const ContentLayout = styled.div`
   gap: 20px;
 `
 
-const SkillSetLayout = styled.div`
+const ListLayout = styled.div`
   display: grid;
   gap: 20px;
 `
@@ -59,6 +65,36 @@ const hardSkillSet: HardSkillProps[] = [
   },
 ]
 
+const projectSetPart1: ProjectProps[] = [
+  {
+    url: 'https://kukorean.com/',
+    imageUrl: KUKoreanLogo,
+    description:
+      "A website for learning Korean language that consists of the instructor's and student’s features including creating a test, creating a course, enrollment, etc.",
+  },
+  {
+    url: 'https://tauhoo.dev/',
+    imageUrl: TauhooLogo,
+    description:
+      'tauhoo.dev is my web blog some time. I write what I have learn or want to share here.',
+  },
+]
+
+const projectSetPart2: ProjectProps[] = [
+  {
+    url: 'https://github.com/Tauhoo/adon-desktop',
+    imageUrl: AdonLogo,
+    description:
+      'Adon - This is a software that can convert Go plugin to GUI like Postman',
+  },
+  {
+    url: 'https://makebykbank.kbtg.tech/',
+    imageUrl: MakeLogo,
+    description:
+      'Make is the project. I’m working on. It’s a mobile  banking application that have many cool feature such as dividing you wallet to many sub wallet',
+  },
+]
+
 const SkillPanel = () => {
   const [page, setPage] = useState<number>(0)
   return (
@@ -69,35 +105,33 @@ const SkillPanel = () => {
           <PageSlider
             currentPage={page}
             pages={[
-              <SkillSetLayout>
-                {hardSkillSet.map(props => {
-                  return <HardSkill {...props}></HardSkill>
-                })}
-              </SkillSetLayout>,
               <>
-                <div>
-                  What I’m learning
-                  <br />
-                  - 3D modeling on Blender
-                  <br />
-                  - I’m currently study how to modeling and shading in Blender.
-                  <br />
-                  - Piano - I’m also interest in music creation. So, I think, I
-                  will start with piano as my first instrument.
-                  <br />- English - My speaking and listening pretty bad. So, I
-                  think it time to improve it seriously.
-                </div>
+                <div>Languages and framworks</div>
+                <br />
+                <ListLayout>
+                  {hardSkillSet.map(props => {
+                    return <HardSkill {...props}></HardSkill>
+                  })}
+                </ListLayout>
               </>,
-              <>
+              <ListLayout>
                 <div>
-                  What I like
-                  <br />- Playing game - I’m play game with my friend every
-                  Friday and Saturday such as Valorant and Dota2.
+                  Projects <br />
                 </div>
-              </>,
+                {projectSetPart1.map((props, index) => (
+                  <Project {...props} key={String(index)} />
+                ))}
+              </ListLayout>,
+              <ListLayout>
+                <div>
+                  Projects <br />
+                </div>
+                {projectSetPart2.map((props, index) => (
+                  <Project {...props} key={String(index)} />
+                ))}
+              </ListLayout>,
             ]}
           />
-
           <PanelPagination maxPage={3} onChange={setPage} />
         </ContentLayout>
       </Panel>

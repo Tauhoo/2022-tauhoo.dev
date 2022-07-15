@@ -1,24 +1,14 @@
 import React, { PropsWithChildren } from 'react'
 import styled from 'styled-components'
-import Title from './Title'
 
 const Container = styled.div`
-  width: 100%;
+  width: 350px;
   height: 100%;
   padding: 20px;
 `
 
-type Props = {
-  title: string
-}
-
-const Panel: React.FC<PropsWithChildren<Props>> = ({ title, children }) => {
-  return (
-    <Container>
-      <Title>{title}</Title>
-      {children}
-    </Container>
-  )
+const Panel: React.FC<PropsWithChildren<{}>> = ({ children }) => {
+  return <Container>{children}</Container>
 }
 
 export default Panel

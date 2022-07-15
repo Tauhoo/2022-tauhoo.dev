@@ -5,19 +5,16 @@ const Wrapper = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
-  padding: 0px 60px;
-  @media (max-width: 1000px) {
-    padding: 0px 40px;
-  }
-
-  @media (max-width: 600px) {
-    padding: 0px 20px;
-  }
+  height: 100vh;
+  padding: 20px;
 `
 
 const Content = styled.div`
-  max-width: 100%;
-  width: 1400px;
+  width:100% ;
+  height: 100%;
+  padding: 25px 30px;
+  background-color: #fff;
+  border-radius: 10px;
 `
 
 const Container: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {

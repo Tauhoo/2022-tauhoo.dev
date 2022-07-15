@@ -14,28 +14,10 @@ const Content = styled.div`
   display: grid;
   grid-template-columns: max-content 1fr max-content;
   align-items: center;
-  gap: 40px;
-
-  padding: 40px 0px;
-  font-size: 3rem;
+  gap: 20px;
   font-weight: 700;
   color: #353535;
-
-  @media (max-width: 1000px) {
-    padding: 20px 0px;
-    font-size: 2rem;
-  }
-
-  @media (max-width: 600px) {
-    gap: 0px;
-    grid-template-columns: 1fr max-content;
-  }
-`
-
-const WebName = styled.div`
-  @media (max-width: 600px) {
-    display: none;
-  }
+  font-size: 1.5rem;
 `
 
 const LogoList = styled.div`
@@ -49,7 +31,7 @@ const Navbar: React.FC = () => {
     <Container>
       <Content>
         <Logo></Logo>
-        <WebName>tauhoo.dev</WebName>
+        <div>tauhoo.dev</div>
         <LogoList>
           <FacebookLogo />
           <TwitterLogo />

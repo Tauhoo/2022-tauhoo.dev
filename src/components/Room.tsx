@@ -14,6 +14,9 @@ const Canvas = styled.canvas`
   height: 100%;
 `
 
+const center = new THREE.Vector3(-2, 3, -2)
+const cameraPosition = new THREE.Vector3(10, 8, 10)
+const hoverAnimationOffestScale = 800
 const Room = () => {
   const containerRef = useRef<HTMLDivElement | null>(null)
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
@@ -26,28 +29,26 @@ const Room = () => {
     roomRendererRef.current = new RoomRenderer(canvasRef.current, width, height)
     await roomRendererRef.current.load()
 
-    orbitControlsRef.current = new OrbitControls(
-      roomRendererRef.current.camera,
-      canvasRef.current
+    roomRendererRef.current.camera.position.set(
+      cameraPosition.x,
+      cameraPosition.y,
+      cameraPosition.z
     )
-    orbitControlsRef.current.target.set(0, 0.75, 0)
-    orbitControlsRef.current.enableDamping = true
-
-    // const material = new THREE.MeshBasicMaterial({ color: 'red' })
-    // const geoMetry = new THREE.BoxGeometry(200, 200, 200)
-    // const mesh = new THREE.Mesh(geoMetry, material)
-    // mesh.position.x = 0
-    // mesh.position.y = 0
-    // mesh.position.z = 0
-    // roomRendererRef.current.scene.add(mesh)
-
-    // roomRendererRef.current.camera.position.x = 1.5
-    // roomRendererRef.current.camera.position.y = 1.5
-    roomRendererRef.current.camera.position.z = 20
-    roomRendererRef.current.camera.position.y = 10
-    roomRendererRef.current.camera.position.x = 20
-    roomRendererRef.current.camera.lookAt(new THREE.Vector3(0, 0, 0))
+    roomRendererRef.current.camera.lookAt(center)
     roomRendererRef.current.start()
+  }
+
+  const onMouseMove: React.MouseEventHandler<HTMLCanvasElement> = e => {
+    if (roomRendererRef.current === null) return
+    if (!(e.target instanceof HTMLCanvasElement)) return
+    const canvas: HTMLCanvasElement = e.target
+    const { x, y, height, width } = canvas.getBoundingClientRect()
+    const xOffset = (e.clientX - x - width / 2) / hoverAnimationOffestScale
+    const yOffset =
+      ((e.clientY - y - height / 2) * -1) / hoverAnimationOffestScale
+    roomRendererRef.current.camera.lookAt(
+      new THREE.Vector3(center.x + xOffset, center.y + yOffset, center.z)
+    )
   }
 
   useEffect(() => {
@@ -56,7 +57,7 @@ const Room = () => {
 
   return (
     <Container ref={containerRef}>
-      <Canvas ref={canvasRef} />
+      <Canvas ref={canvasRef} onMouseMove={onMouseMove} />
     </Container>
   )
 }

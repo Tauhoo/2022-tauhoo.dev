@@ -2,7 +2,7 @@ import * as THREE from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 
 const roomFile = '/models/room.glb'
-const cameraSize = 30
+const cameraSize = 25
 function newWebGLRenderer(
   canvas: Element,
   width: number,
@@ -47,8 +47,6 @@ class RoomRenderer {
       10000
     )
 
-    console.log(cameraSize, cameraSize * ratio)
-
     scene.add(camera)
 
     this.scene = scene
@@ -78,15 +76,15 @@ class RoomRenderer {
     const sunLight = new THREE.SpotLight(0xffa95c, 4)
     sunLight.position.set(-50, 50, 50)
     this.scene.add(sunLight)
-    const light = new THREE.DirectionalLight('#fff', 0.3)
+    const light = new THREE.DirectionalLight('#fff', 2)
     light.position.set(0.5, 0, 0.866)
     this.scene.add(light)
 
-    this.scene.add(new THREE.AmbientLight('#fff', 0.5))
+    this.scene.add(new THREE.AmbientLight('#fff', 2))
 
     const gltf = await this.textureLoader.loadAsync(roomFile)
-
     this.roomGroup = gltf.scene
+
     this.state = RoomRendererState.LOADED
     this.scene.add(this.roomGroup)
   }

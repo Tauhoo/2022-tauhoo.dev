@@ -18,6 +18,14 @@ const Layout = styled.div`
   gap: 20px;
 `
 
+const StaticPanelContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  @media (max-width: 950px) {
+    display: none;
+  }
+`
+
 const panels: PanelEntry[] = [
   { name: panelNames.PROFILE, panel: <ProfilePanel /> },
   { name: panelNames.SKILL, panel: <SkillPanel /> },
@@ -26,7 +34,7 @@ const panels: PanelEntry[] = [
 
 // markup
 const IndexPage = () => {
-  const [panel, setPanel] = useState(panelNames.PROFILE)
+  const [panel, setPanel] = useState(panelNames.SKILL)
 
   return (
     <main>
@@ -37,7 +45,9 @@ const IndexPage = () => {
           <Navbar></Navbar>
           <ContentLayout>
             <Room />
-            <PanelDisplayer panels={panels} currentPanel={panel} />
+            <StaticPanelContainer>
+              <PanelDisplayer panels={panels} currentPanel={panel} />
+            </StaticPanelContainer>
           </ContentLayout>
         </Layout>
       </Container>

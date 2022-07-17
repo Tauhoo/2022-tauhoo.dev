@@ -56,7 +56,7 @@ const PageSlider: React.FC<Props> = ({ pages, currentPage }) => {
     <Container>
       <Slider maxPage={pages.length} currentPage={currentPage}>
         {pages.map((page, index) => (
-          <SizeWraper visible={index === currentPage}>
+          <SizeWraper key={String(index)} visible={index === currentPage}>
             <Page visible={index === currentPage} key={String(index)}>
               {page}
             </Page>

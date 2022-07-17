@@ -109,9 +109,9 @@ const SkillPanel = () => {
                 <div>Languages and framworks</div>
                 <br />
                 <ListLayout>
-                  {hardSkillSet.map(props => {
-                    return <HardSkill {...props}></HardSkill>
-                  })}
+                  {hardSkillSet.map((props, index) => (
+                    <HardSkill {...props} key={String(index)}></HardSkill>
+                  ))}
                 </ListLayout>
               </>,
               <ListLayout>

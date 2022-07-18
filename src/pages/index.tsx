@@ -44,7 +44,7 @@ const IndexPage = () => {
         <Layout>
           <Navbar></Navbar>
           <ContentLayout>
-            <Room />
+            <Room onChangeRoom={console.log} />
             <StaticPanelContainer>
               <PanelDisplayer panels={panels} currentPanel={panel} />
             </StaticPanelContainer>

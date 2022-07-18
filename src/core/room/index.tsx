@@ -1,8 +1,10 @@
 import * as THREE from 'three'
+import { Vector3 } from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 
 const roomFile = '/models/room.glb'
 const cameraSize = 25
+
 function newWebGLRenderer(
   canvas: Element,
   width: number,
@@ -23,6 +25,13 @@ export enum RoomRendererState {
   RUNNING,
 }
 
+export enum RoomSection {
+  NONE = 1,
+  PROFILE,
+  SKILL,
+  EXPERIENCE,
+}
+
 class RoomRenderer {
   scene: THREE.Scene
   camera: THREE.OrthographicCamera
@@ -32,6 +41,12 @@ class RoomRenderer {
   state: RoomRendererState
   textureLoader: GLTFLoader
   roomGroup?: THREE.Group
+  raycaster: THREE.Raycaster
+
+  profileHitBox?: THREE.Object3D
+  experienceHitBox?: THREE.Object3D
+  skillHitBox?: THREE.Object3D
+  roomSection: RoomSection
 
   constructor(canvas: Element, width: number, height: number) {
     const ratio = width / height
@@ -59,6 +74,8 @@ class RoomRenderer {
     this.width = width
     this.height = height
     this.textureLoader = new GLTFLoader()
+    this.raycaster = new THREE.Raycaster()
+    this.roomSection = RoomSection.NONE
   }
 
   tick = () => {
@@ -85,6 +102,10 @@ class RoomRenderer {
     const gltf = await this.textureLoader.loadAsync(roomFile)
     this.roomGroup = gltf.scene
 
+    this.profileHitBox = this.roomGroup.getObjectByName('profile_hit_box')
+    this.experienceHitBox = this.roomGroup.getObjectByName('experience_hit_box')
+    this.skillHitBox = this.roomGroup.getObjectByName('skill_hit_box')
+
     this.state = RoomRendererState.LOADED
     this.scene.add(this.roomGroup)
   }
@@ -95,6 +116,35 @@ class RoomRenderer {
 
     this.state = RoomRendererState.RUNNING
     this.tick()
+  }
+
+  // offsetRatio = width/height
+  moveRaycaster = (offsetWidthRatio: number, offsetHeightRatio: number) => {
+    this.raycaster.setFromCamera(
+      new THREE.Vector2(offsetWidthRatio, offsetHeightRatio),
+      this.camera
+    )
+
+    if (typeof this.profileHitBox !== 'undefined') {
+      if (this.raycaster.intersectObject(this.profileHitBox).length > 0) {
+        this.roomSection = RoomSection.PROFILE
+        return
+      }
+    }
+
+    if (typeof this.experienceHitBox !== 'undefined') {
+      if (this.raycaster.intersectObject(this.experienceHitBox).length > 0) {
+        this.roomSection = RoomSection.EXPERIENCE
+        return
+      }
+    }
+
+    if (typeof this.skillHitBox !== 'undefined') {
+      if (this.raycaster.intersectObject(this.skillHitBox).length > 0) {
+        this.roomSection = RoomSection.SKILL
+        return
+      }
+    }
   }
 }
 

@@ -1,8 +1,8 @@
 import React, { useEffect, useRef } from 'react'
 import * as THREE from 'three'
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import styled from 'styled-components'
-import RoomRenderer from '../core/room'
+import RoomRenderer, { RoomSection } from '../core/room'
+import * as Panel from '../core/panel'
 
 const Container = styled.div`
   height: 100%;
@@ -17,11 +17,15 @@ const Canvas = styled.canvas`
 const center = new THREE.Vector3(-2, 3, -2)
 const cameraPosition = new THREE.Vector3(10, 8, 10)
 const hoverAnimationOffestScale = 800
-const Room = () => {
+
+type Props = {
+  onChangeRoom?: (newPanel: string) => void
+}
+
+const Room: React.FC<Props> = ({ onChangeRoom }) => {
   const containerRef = useRef<HTMLDivElement | null>(null)
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
   const roomRendererRef = useRef<RoomRenderer | null>(null)
-  const orbitControlsRef = useRef<OrbitControls | null>(null)
 
   const init = async () => {
     if (canvasRef.current === null || containerRef.current === null) return
@@ -36,6 +40,13 @@ const Room = () => {
     )
     roomRendererRef.current.camera.lookAt(center)
     roomRendererRef.current.start()
+
+    // orbitControlsRef.current = new OrbitControls(
+    //   roomRendererRef.current.camera,
+    //   canvasRef.current
+    // )
+    // orbitControlsRef.current.target.set(0, 0.75, 0)
+    // orbitControlsRef.current.enableDamping = true
   }
 
   const onMouseMove: React.MouseEventHandler<HTMLCanvasElement> = e => {
@@ -49,6 +60,26 @@ const Room = () => {
     roomRendererRef.current.camera.lookAt(
       new THREE.Vector3(center.x + xOffset, center.y + yOffset, center.z)
     )
+    const xOffsetRatio = (e.clientX - x - width / 2) / (width / 2)
+    const yOffsetRatio = ((e.clientY - y - height / 2) * -1) / (height / 2)
+    roomRendererRef.current.moveRaycaster(xOffsetRatio, yOffsetRatio)
+  }
+
+  const onClick = () => {
+    if (!onChangeRoom) return
+    switch (roomRendererRef.current?.roomSection) {
+      case RoomSection.EXPERIENCE:
+        onChangeRoom(Panel.panelNames.EXPERIENCE)
+        break
+      case RoomSection.PROFILE:
+        onChangeRoom(Panel.panelNames.PROFILE)
+        break
+      case RoomSection.SKILL:
+        onChangeRoom(Panel.panelNames.SKILL)
+        break
+      default:
+        break
+    }
   }
 
   useEffect(() => {
@@ -57,7 +88,7 @@ const Room = () => {
 
   return (
     <Container ref={containerRef}>
-      <Canvas ref={canvasRef} onMouseMove={onMouseMove} />
+      <Canvas ref={canvasRef} onMouseMove={onMouseMove} onClick={onClick} />
     </Container>
   )
 }

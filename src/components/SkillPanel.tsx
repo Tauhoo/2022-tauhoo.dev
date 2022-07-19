@@ -18,7 +18,7 @@ import ReactLogo from '../images/reactLogo.png'
 import KUKoreanLogo from '../images/kukoreanLogo.png'
 import TauhooLogo from '../images/logo.png'
 import AdonLogo from '../images/adonLogo.png'
-import MakeLogo from '../images/MakeLogo.png'
+import MakeLogo from '../images/makeLogo.png'
 
 const ContentLayout = styled.div`
   height: 100%;

@@ -12,13 +12,25 @@ const Container = styled.div`
 
 const Canvas = styled.canvas`
   position: absolute;
-  top: 0px;
-  left: 0px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 `
 
 const center = new THREE.Vector3(-2, 3, -2)
 const cameraPosition = new THREE.Vector3(10, 8, 10)
 const hoverAnimationOffestScale = 800
+const sizeRatio = 845 / 543
+
+function getTrimSize(width: number, height: number) {
+  const expectHeight = width / sizeRatio
+  const expectWidth = height * sizeRatio
+  if (expectHeight > height) {
+    return [expectWidth, height]
+  } else {
+    return [width, height]
+  }
+}
 
 type Props = {
   onChangeRoom?: (newPanel: string) => void
@@ -32,7 +44,12 @@ const Room: React.FC<Props> = ({ onChangeRoom }) => {
   const init = async () => {
     if (canvasRef.current === null || containerRef.current === null) return
     const { width, height } = containerRef.current.getBoundingClientRect()
-    roomRendererRef.current = new RoomRenderer(canvasRef.current, width, height)
+    const [expectWidth, expectHeight] = getTrimSize(width, height)
+    roomRendererRef.current = new RoomRenderer(
+      canvasRef.current,
+      expectWidth,
+      expectHeight
+    )
     await roomRendererRef.current.load()
 
     roomRendererRef.current.camera.position.set(
@@ -78,14 +95,11 @@ const Room: React.FC<Props> = ({ onChangeRoom }) => {
   }
 
   const onResize: (this: Window, ev: UIEvent) => void = e => {
-    if (
-      canvasRef.current === null ||
-      containerRef.current === null ||
-      roomRendererRef.current === null
-    )
+    if (containerRef.current === null || roomRendererRef.current === null)
       return
     const { width, height } = containerRef.current.getBoundingClientRect()
-    roomRendererRef.current.updateSize(width, height)
+    const [expectWidth, expectHeight] = getTrimSize(width, height)
+    roomRendererRef.current.updateSize(expectWidth, expectHeight)
   }
 
   useEffect(() => {

@@ -7,6 +7,9 @@ const Container = styled.div`
   grid-template-columns: 1fr max-content;
   height: 100%;
   gap: 20px;
+  @media (max-width: 950px) {
+    grid-template-columns: 1fr;
+  }
 `
 
 const ContentLayout: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {

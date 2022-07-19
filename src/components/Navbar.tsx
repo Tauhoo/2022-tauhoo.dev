@@ -1,11 +1,11 @@
-import React from "react"
-import styled from "styled-components"
+import React from 'react'
+import styled from 'styled-components'
 
-import Logo from "./icons/Logo"
-import FacebookLogo from "./icons/Facebook"
-import TwitterLogo from "./icons/Twitter"
-import PinterestLogo from "./icons/Pinterest"
-import GithubLogo from "./icons/Github"
+import Logo from './icons/Logo'
+import FacebookLogo from './icons/Facebook'
+import TwitterLogo from './icons/Twitter'
+import PinterestLogo from './icons/Pinterest'
+import GithubLogo from './icons/Github'
 
 const Content = styled.div`
   width: 100%;
@@ -16,6 +16,9 @@ const Content = styled.div`
   font-weight: 700;
   color: #353535;
   font-size: 1.5rem;
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr max-content;
+  }
 `
 
 const LogoList = styled.div`
@@ -24,18 +27,24 @@ const LogoList = styled.div`
   gap: 10px;
 `
 
+const Name = styled.div`
+  @media (max-width: 480px) {
+    display: none;
+  }
+`
+
 const Navbar: React.FC = () => {
   return (
-      <Content>
-        <Logo></Logo>
-        <div>tauhoo.dev</div>
-        <LogoList>
-          <FacebookLogo />
-          <TwitterLogo />
-          <PinterestLogo />
-          <GithubLogo />
-        </LogoList>
-      </Content>
+    <Content>
+      <Logo></Logo>
+      <Name>tauhoo.dev</Name>
+      <LogoList>
+        <FacebookLogo />
+        <TwitterLogo />
+        <PinterestLogo />
+        <GithubLogo />
+      </LogoList>
+    </Content>
   )
 }
 

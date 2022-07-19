@@ -5,6 +5,9 @@ const Container = styled.div`
   width: 100%;
   height: 100%;
   padding: 20px;
+  @media (max-width: 480px) {
+    padding: 0px;
+  }
 `
 
 const Panel: React.FC<PropsWithChildren<{}>> = ({ children }) => {

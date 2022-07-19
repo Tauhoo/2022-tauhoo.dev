@@ -160,6 +160,8 @@ class RoomRenderer {
         return
       }
     }
+
+    this.roomSection = RoomSection.NONE
   }
 }
 

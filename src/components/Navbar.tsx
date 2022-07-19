@@ -18,6 +18,7 @@ const Content = styled.div`
   font-size: 1.5rem;
   @media (max-width: 480px) {
     grid-template-columns: 1fr max-content;
+    font-size: 1.2rem;
   }
 `
 

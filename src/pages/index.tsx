@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import Container from '../components/Container'
-import ContentLayout from '../components/ContentLayout'
+import { ContentLayout } from '../components/Layout'
 import ExperiencePanel from '../components/ExperiencePanel'
 import GlobalStyle from '../components/globalStyle'
 import Navbar from '../components/Navbar'
@@ -17,12 +17,36 @@ const Layout = styled.div`
   height: 100%;
   gap: 20px;
 `
+type StaticPanelContainerProps = {
+  visible: boolean
+}
 
-const StaticPanelContainer = styled.div`
-  width: 100%;
+const StaticPanelContainer = styled.div<StaticPanelContainerProps>`
+  width: 350px;
   height: 100%;
   @media (max-width: 950px) {
-    display: none;
+    width: 100%;
+    position: absolute;
+    top: ${({ visible }: StaticPanelContainerProps) =>
+      visible ? '0%' : '100%'};
+    left: 0px;
+    transition: 0.3s;
+  }
+`
+
+type RoomContainerProps = {
+  visible: boolean
+}
+
+const RoomContainer = styled.div<RoomContainerProps>`
+  width: 100%;
+  height: 100%;
+  z-index: 10000;
+  @media (max-width: 950px) {
+    position: absolute;
+    top: ${({ visible }: RoomContainerProps) => (visible ? '0%' : '100%')};
+    left: 0px;
+    transition: 0.3s;
   }
 `
 
@@ -30,11 +54,12 @@ const panels: PanelEntry[] = [
   { name: panelNames.PROFILE, panel: <ProfilePanel /> },
   { name: panelNames.SKILL, panel: <SkillPanel /> },
   { name: panelNames.EXPERIENCE, panel: <ExperiencePanel /> },
+  { name: panelNames.NONE, panel: <div></div> },
 ]
 
 // markup
 const IndexPage = () => {
-  const [panel, setPanel] = useState<string>(panelNames.SKILL)
+  const [panel, setPanel] = useState<string>(panelNames.NONE)
 
   return (
     <main>
@@ -44,8 +69,10 @@ const IndexPage = () => {
         <Layout>
           <Navbar></Navbar>
           <ContentLayout>
-            <Room onChangeRoom={setPanel} />
-            <StaticPanelContainer>
+            <RoomContainer visible={panel === panelNames.NONE}>
+              <Room onChangeRoom={setPanel} />
+            </RoomContainer>
+            <StaticPanelContainer visible={panel !== panelNames.NONE}>
               <PanelDisplayer panels={panels} currentPanel={panel} />
             </StaticPanelContainer>
           </ContentLayout>

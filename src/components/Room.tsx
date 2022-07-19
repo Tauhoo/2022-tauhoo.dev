@@ -90,6 +90,7 @@ const Room: React.FC<Props> = ({ onChangeRoom }) => {
         onChangeRoom(Panel.panelNames.SKILL)
         break
       default:
+        onChangeRoom(Panel.panelNames.NONE)
         break
     }
   }

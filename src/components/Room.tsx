@@ -7,11 +7,13 @@ import * as Panel from '../core/panel'
 const Container = styled.div`
   height: 100%;
   width: 100%;
+  position: relative;
 `
 
 const Canvas = styled.canvas`
-  width: 100%;
-  height: 100%;
+  position: absolute;
+  top: 0px;
+  left: 0px;
 `
 
 const center = new THREE.Vector3(-2, 3, -2)
@@ -40,13 +42,6 @@ const Room: React.FC<Props> = ({ onChangeRoom }) => {
     )
     roomRendererRef.current.camera.lookAt(center)
     roomRendererRef.current.start()
-
-    // orbitControlsRef.current = new OrbitControls(
-    //   roomRendererRef.current.camera,
-    //   canvasRef.current
-    // )
-    // orbitControlsRef.current.target.set(0, 0.75, 0)
-    // orbitControlsRef.current.enableDamping = true
   }
 
   const onMouseMove: React.MouseEventHandler<HTMLCanvasElement> = e => {
@@ -82,8 +77,21 @@ const Room: React.FC<Props> = ({ onChangeRoom }) => {
     }
   }
 
+  const onResize: (this: Window, ev: UIEvent) => void = e => {
+    if (
+      canvasRef.current === null ||
+      containerRef.current === null ||
+      roomRendererRef.current === null
+    )
+      return
+    const { width, height } = containerRef.current.getBoundingClientRect()
+    roomRendererRef.current.updateSize(width, height)
+  }
+
   useEffect(() => {
+    window.addEventListener('resize', onResize)
     init()
+    return () => window.removeEventListener('resize', onResize)
   }, [])
 
   return (

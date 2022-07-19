@@ -76,6 +76,7 @@ class RoomRenderer {
     this.textureLoader = new GLTFLoader()
     this.raycaster = new THREE.Raycaster()
     this.roomSection = RoomSection.NONE
+    this.webGLRenderer.setSize(width, height)
   }
 
   tick = () => {
@@ -116,6 +117,20 @@ class RoomRenderer {
 
     this.state = RoomRendererState.RUNNING
     this.tick()
+  }
+
+  updateSize = (width: number, height: number) => {
+    this.width = width
+    this.height = height
+    const ratio = width / height
+
+    this.camera.left = cameraSize / -2
+    this.camera.right = cameraSize / 2
+    this.camera.top = cameraSize / (2 * ratio)
+    this.camera.bottom = cameraSize / (-2 * ratio)
+    this.camera.updateProjectionMatrix()
+    this.webGLRenderer.setSize(width, height)
+    this.webGLRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
   }
 
   // offsetRatio = width/height

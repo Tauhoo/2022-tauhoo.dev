@@ -34,7 +34,7 @@ const panels: PanelEntry[] = [
 
 // markup
 const IndexPage = () => {
-  const [panel, setPanel] = useState(panelNames.SKILL)
+  const [panel, setPanel] = useState<string>(panelNames.SKILL)
 
   return (
     <main>
@@ -44,7 +44,7 @@ const IndexPage = () => {
         <Layout>
           <Navbar></Navbar>
           <ContentLayout>
-            <Room onChangeRoom={console.log} />
+            <Room onChangeRoom={setPanel} />
             <StaticPanelContainer>
               <PanelDisplayer panels={panels} currentPanel={panel} />
             </StaticPanelContainer>

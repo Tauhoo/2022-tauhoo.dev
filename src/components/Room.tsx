@@ -8,6 +8,7 @@ const Container = styled.div`
   height: 100%;
   width: 100%;
   position: relative;
+  cursor: pointer;
 `
 
 const Canvas = styled.canvas`
@@ -21,8 +22,10 @@ const center = new THREE.Vector3(-2, 3, -2)
 const cameraPosition = new THREE.Vector3(10, 8, 10)
 const hoverAnimationOffestScale = 800
 const sizeRatio = 845 / 543
+const maxHeight = 560
 
 function getTrimSize(width: number, height: number) {
+  height = Math.min(height, maxHeight)
   const expectHeight = width / sizeRatio
   const expectWidth = height * sizeRatio
   if (expectHeight > height) {
@@ -34,9 +37,10 @@ function getTrimSize(width: number, height: number) {
 
 type Props = {
   onChangeRoom?: (newPanel: string) => void
+  onLoadSucess: () => void
 }
 
-const Room: React.FC<Props> = ({ onChangeRoom }) => {
+const Room: React.FC<Props> = ({ onChangeRoom, onLoadSucess }) => {
   const containerRef = useRef<HTMLDivElement | null>(null)
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
   const roomRendererRef = useRef<RoomRenderer | null>(null)
@@ -59,6 +63,9 @@ const Room: React.FC<Props> = ({ onChangeRoom }) => {
     )
     roomRendererRef.current.camera.lookAt(center)
     roomRendererRef.current.start()
+    console.log('DEBUG : REACH')
+
+    onLoadSucess()
   }
 
   const onMouseMove: React.MouseEventHandler<HTMLCanvasElement> = e => {

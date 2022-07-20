@@ -10,12 +10,17 @@ import ProfilePanel from '../components/ProfilePanel'
 import Room from '../components/Room'
 import SkillPanel from '../components/SkillPanel'
 import { panelNames } from '../core/panel'
+import Loading from '../components/Loading'
 
 const Layout = styled.div`
   display: grid;
   grid-template-rows: max-content 1fr;
   height: 100%;
   gap: 20px;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
 `
 type StaticPanelContainerProps = {
   visible: boolean
@@ -50,9 +55,16 @@ const RoomContainer = styled.div<RoomContainerProps>`
   }
 `
 
+const LoadingWrapper = styled.div`
+  position: relative;
+  width: 100%;
+  height: 100%;
+`
+
 // markup
 const IndexPage = () => {
   const [panel, setPanel] = useState<string>(panelNames.NONE)
+  const [loading, setLoading] = useState<boolean>(true)
 
   const panels: PanelEntry[] = [
     {
@@ -75,17 +87,23 @@ const IndexPage = () => {
       <GlobalStyle />
       <title>Home Page</title>
       <Container>
-        <Layout>
-          <Navbar></Navbar>
-          <ContentLayout>
-            <RoomContainer visible={panel === panelNames.NONE}>
-              <Room onChangeRoom={setPanel} />
-            </RoomContainer>
-            <StaticPanelContainer visible={panel !== panelNames.NONE}>
-              <PanelDisplayer panels={panels} currentPanel={panel} />
-            </StaticPanelContainer>
-          </ContentLayout>
-        </Layout>
+        <LoadingWrapper>
+          <Layout>
+            <Navbar></Navbar>
+            <ContentLayout>
+              <RoomContainer visible={panel === panelNames.NONE}>
+                <Room
+                  onChangeRoom={setPanel}
+                  onLoadSucess={() => setLoading(false)}
+                />
+              </RoomContainer>
+              <StaticPanelContainer visible={panel !== panelNames.NONE}>
+                <PanelDisplayer panels={panels} currentPanel={panel} />
+              </StaticPanelContainer>
+            </ContentLayout>
+          </Layout>
+          <Loading visible={loading} />
+        </LoadingWrapper>
       </Container>
     </main>
   )

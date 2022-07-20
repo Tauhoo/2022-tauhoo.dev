@@ -50,16 +50,25 @@ const RoomContainer = styled.div<RoomContainerProps>`
   }
 `
 
-const panels: PanelEntry[] = [
-  { name: panelNames.PROFILE, panel: <ProfilePanel /> },
-  { name: panelNames.SKILL, panel: <SkillPanel /> },
-  { name: panelNames.EXPERIENCE, panel: <ExperiencePanel /> },
-  { name: panelNames.NONE, panel: <div></div> },
-]
-
 // markup
 const IndexPage = () => {
   const [panel, setPanel] = useState<string>(panelNames.NONE)
+
+  const panels: PanelEntry[] = [
+    {
+      name: panelNames.PROFILE,
+      panel: <ProfilePanel onClose={() => setPanel(panelNames.NONE)} />,
+    },
+    {
+      name: panelNames.SKILL,
+      panel: <SkillPanel onClose={() => setPanel(panelNames.NONE)} />,
+    },
+    {
+      name: panelNames.EXPERIENCE,
+      panel: <ExperiencePanel onClose={() => setPanel(panelNames.NONE)} />,
+    },
+    { name: panelNames.NONE, panel: <div></div> },
+  ]
 
   return (
     <main>

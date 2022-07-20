@@ -19,6 +19,7 @@ import KUKoreanLogo from '../images/kukoreanLogo.png'
 import TauhooLogo from '../images/logo.png'
 import AdonLogo from '../images/adonLogo.png'
 import MakeLogo from '../images/makeLogo.png'
+import PanelHeader from './PanelHeader'
 
 const ContentLayout = styled.div`
   height: 100%;
@@ -95,13 +96,17 @@ const projectSetPart2: ProjectProps[] = [
   },
 ]
 
-const SkillPanel = () => {
+type Props = {
+  onClose: () => void
+}
+
+const SkillPanel: React.FC<Props> = ({ onClose }) => {
   const [page, setPage] = useState<number>(0)
   return (
     <>
       <Panel>
         <ContentLayout>
-          <Title>Skill</Title>
+          <PanelHeader onClose={onClose}>Skill</PanelHeader>
           <PageSlider
             currentPage={page}
             pages={[

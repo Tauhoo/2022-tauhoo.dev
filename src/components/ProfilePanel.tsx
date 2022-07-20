@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import Panel from './Panel'
-import Title from './Title'
 import profileImage from '../images/profile.jpg'
 
 import PanelImage from './PanelImage'
 import PanelPagination from './PanelPagination'
 import PageSlider from './PageSlider'
+import PanelHeader from './PanelHeader'
 
 const ContentLayout = styled.div`
   height: 100%;
@@ -14,14 +14,17 @@ const ContentLayout = styled.div`
   grid-template-rows: max-content 1fr max-content;
   gap: 20px;
 `
+type Props = {
+  onClose: () => void
+}
 
-const PanelProfile = () => {
+const PanelProfile: React.FC<Props> = ({ onClose }) => {
   const [page, setPage] = useState<number>(0)
   return (
     <>
       <Panel>
         <ContentLayout>
-          <Title>Profile</Title>
+          <PanelHeader onClose={onClose}>Profile</PanelHeader>
           <PageSlider
             currentPage={page}
             pages={[

@@ -21,6 +21,10 @@ const PanelContainer = styled.div`
   transition: 0.3s;
   height: 100%;
   width: 100%;
+  @media (max-width: 950px) {
+    left: 0px;
+    z-index: ${({ visible }: PanelContainerProps) => (visible ? '1000' : '0')};
+  }
 `
 
 export type PanelEntry = {

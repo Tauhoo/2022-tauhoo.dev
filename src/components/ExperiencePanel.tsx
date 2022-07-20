@@ -8,6 +8,7 @@ import Experience, { Props as ExperienceProps } from './Experience'
 
 import GraduateLogo from '../images/graduateLogo.jpeg'
 import InternLogo from '../images/internLogo.jpeg'
+import PanelHeader from './PanelHeader'
 
 const ContentLayout = styled.div`
   height: 100%;
@@ -63,13 +64,16 @@ const experiens = [
   },
 ]
 
-const ExperiencePanel = () => {
+type Props = {
+  onClose: () => void
+}
+const ExperiencePanel: React.FC<Props> = ({ onClose }) => {
   const [page, setPage] = useState<number>(0)
   return (
     <>
       <Panel>
         <ContentLayout>
-          <Title>Experience</Title>
+          <PanelHeader onClose={onClose}>Experience</PanelHeader>
           <PageSlider
             currentPage={page}
             pages={experiens.map(({ year, list }) => (

@@ -21,8 +21,8 @@ const Canvas = styled.canvas`
 const center = new THREE.Vector3(-2, 3, -2)
 const cameraPosition = new THREE.Vector3(10, 8, 10)
 const hoverAnimationOffestScale = 800
-const sizeRatio = 845 / 543
-const maxHeight = 560
+const sizeRatio = 800 / 543
+const maxHeight = 580
 
 function getTrimSize(width: number, height: number) {
   height = Math.min(height, maxHeight)
